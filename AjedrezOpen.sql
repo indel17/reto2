@@ -6,7 +6,6 @@ create table jugador(
     rankingF int,
     titulo varchar(5),
     nombre varchar(50),
-    apellidos varchar(50),
     federacion varchar(20),
     fide int,
     fideID varchar(30),
@@ -48,7 +47,7 @@ create table optarPremio(
 INSERT INTO torneo (categoria) VALUES ('A'), ('B');
 /*
 insert into  premio (categoria, tipo, puesto, importe) values 
-	('B', "general", 2, 1200),
+    ('B', "general", 2, 1200),
     ('B', "general", 3, 650),
     ('B', "general", 4, 550),
     ('B', "general", 5, 500),
@@ -107,11 +106,11 @@ insert into  premio (categoria, tipo, puesto, importe) values
     ('A', "cv", 4, 200),
     ('A', "cv", 5, 100),
     ('A', "sub2400", 1, 225),
-	('A', "sub2400", 2, 150),
-	('A', "sub2400", 3, 120),
-	('A', "sub2400", 4, 100),
+    ('A', "sub2400", 2, 150),
+    ('A', "sub2400", 3, 120),
+    ('A', "sub2400", 4, 100),
     ('A', "sub2200", 1, 150),
-	('A', "sub2200", 2, 100),
+    ('A', "sub2200", 2, 100),
     ('A', "hotel", 1, 125),
     ('A', "hotel", 2, 125),
     ('A', "hotel", 3, 125),
