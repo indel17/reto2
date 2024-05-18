@@ -38,9 +38,10 @@ create table optarPremio(
     rankingI int,
     categoria enum('A', 'B'),
     tipo varchar(30),
+    puesto int,
     constraint fk_optarPremio_jugador foreign key (rankingI, categoria) references jugador(rankingI, categoria) on delete cascade on update cascade,
-    constraint fk_optarPremio_premio foreign key (tipo, categoria) references premio(tipo, categoria) on delete cascade on update cascade,
-    primary key (rankingI, categoria, tipo)
+     constraint fk_optarPremio_premio foreign key (tipo, categoria, puesto) references premio(tipo, categoria, puesto) on delete cascade on update cascade,
+    primary key (rankingI, categoria, tipo, puesto)
 );
 
 
