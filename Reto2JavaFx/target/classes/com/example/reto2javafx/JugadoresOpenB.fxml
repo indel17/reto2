@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to bottom, #0E0713, #4543CC);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.reto2javafx.JugadorController">
+   <children>
+      <Label layoutX="36.0" layoutY="36.0" prefHeight="43.0" prefWidth="222.0" text="𝐁𝐄𝐍𝐈𝐃𝐎𝐑𝐌" textFill="WHITE">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <Label layoutX="37.0" layoutY="62.0" prefHeight="34.0" prefWidth="169.0" text="𝘾𝙃𝙀𝙎𝙎 𝙊𝙋𝙀𝙉" textFill="#41e4df">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblJugadores" layoutX="206.0" layoutY="172.0" prefHeight="483.0" prefWidth="767.0" style="-fx-border-width: 5; -fx-border-color: linear-gradient(to top, #FF45CC, #4543CC);">
+         <columns>
+            <TableColumn fx:id="colPuesto" prefWidth="81.0" style="-fx-background-color: #5D71D5;" text="Puesto" />
+            <TableColumn fx:id="colNombre" prefWidth="260.0" style="-fx-background-color: #5D71D5;" text="Nombre" />
+            <TableColumn fx:id="colFIDE" prefWidth="86.0" style="-fx-background-color: #5D71D5;" text="FIDE" />
+            <TableColumn fx:id="colID" prefWidth="89.0" style="-fx-background-color: #5D71D5;" text="FIDE ID" />
+            <TableColumn fx:id="colTipo" minWidth="0.0" prefWidth="55.0" style="-fx-background-color: #5D71D5;" text="Tipo " />
+            <TableColumn fx:id="colFed" prefWidth="79.0" style="-fx-background-color: #5D71D5;" text="Fed" />
+            <TableColumn fx:id="colHotel" prefWidth="42.0" style="-fx-background-color: #5D71D5;" text="H" />
+            <TableColumn fx:id="colCV" prefWidth="65.0" style="-fx-background-color: #5D71D5;" text="CV" />
+         </columns>
+      </TableView>
+      <Label fx:id="labTitulo" layoutX="433.0" layoutY="96.0" text="Jugadores" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="28.0" />
+         </font>
+      </Label>
+      <Button fx:id="BtnEliminar" layoutX="206.0" layoutY="664.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="222.0" style="-fx-background-radius: 15; -fx-background-color: linear-gradient(to top, #BF7BFF, #FF52DA);" text="Eliminar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnVolver" layoutX="44.0" layoutY="689.0" mnemonicParsing="false" opacity="0.0" prefHeight="65.0" prefWidth="55.0" />
+      <Button fx:id="btnLimpiar" layoutX="19.0" layoutY="621.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="169.0" style="-fx-background-radius: 15; -fx-background-color: linear-gradient(to top, #45E8FF, #4564FF);" text="Limpiar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <TextField fx:id="txtBuscar" layoutX="22.0" layoutY="179.0" promptText="Buscar..." />
+      <Label layoutX="22.0" layoutY="256.0" text="Nombre" textFill="WHITE" />
+      <Label layoutX="23.0" layoutY="349.0" text="FIDE" textFill="WHITE" />
+      <Label layoutX="26.0" layoutY="443.0" text="H" textFill="WHITE" />
+      <Label layoutX="23.0" layoutY="540.0" text="CV" textFill="WHITE" />
+      <TextField fx:id="txtNombreJ" layoutX="21.0" layoutY="280.0" />
+      <TextField fx:id="txtFIDE" layoutX="21.0" layoutY="374.0" />
+      <TextField fx:id="txtHotel" layoutX="21.0" layoutY="468.0" />
+      <TextField fx:id="txtCV" layoutX="21.0" layoutY="566.0" />
+      <Button fx:id="BtnActualizar" layoutX="479.0" layoutY="664.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="222.0" style="-fx-background-radius: 15; -fx-background-color: linear-gradient(to top, #BF7BFF, #FF52DA);" text="Actualizar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="BtnAnadir" layoutX="751.0" layoutY="664.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="222.0" style="-fx-background-radius: 15; -fx-background-color: linear-gradient(to top, #BF7BFF, #FF52DA);" text="Añadir" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="90.0" fitWidth="84.0" layoutX="37.0" layoutY="677.0">
+         <image>
+            <Image url="@Picsart_24-05-09_13-00-56-080.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
