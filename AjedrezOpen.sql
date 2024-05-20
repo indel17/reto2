@@ -13,7 +13,6 @@ create table jugador(
     CV boolean default false,
     importeP int,
     categoria enum('A', 'B'),
-    tipo varchar(30),
     descalificado boolean default false,
     primary key(rankingI, categoria)
 );
