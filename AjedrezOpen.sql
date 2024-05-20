@@ -14,6 +14,7 @@ create table jugador(
     importeP int,
     categoria enum('A', 'B'),
     descalificado boolean default false,
+    tipo varchar(30),
     primary key(rankingI, categoria)
 );
 
