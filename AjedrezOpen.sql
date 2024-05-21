@@ -14,7 +14,6 @@ create table jugador(
     importeP int,
     categoria enum('A', 'B'),
     descalificado boolean default false,
-    tipo varchar(30),
     primary key(rankingI, categoria)
 );
 
@@ -34,7 +33,6 @@ create table premio(
     constraint fk_premio_rankingI foreign key (rankingI) references jugador(rankingI) on delete cascade on update cascade
 );
 
-alter table jugador add constraint fk_jugador_tipo foreign key (tipo) references premio(tipo) on delete cascade on update cascade;
 
 create table optarPremio(
     rankingI int,
@@ -48,6 +46,34 @@ create table optarPremio(
 
 
 INSERT INTO torneo (categoria) VALUES ('A'), ('B');
+
+
+/*Estos insert es para probar*/
+insert into  premio (categoria, tipo, puesto, importe) values 
+	('B', "general", 1, 1200),
+    ('B', "general", 2, 1000),
+    ('B', "sub1800", 1, 1100),
+    ('B', "sub1800", 2, 800),
+    ('B', "sub1600", 1, 900),
+    ('B', "sub1600", 2, 600),
+    ('B', "sub1400", 1, 150),
+    ('B', "sub1400", 2, 100), 
+    ('A', "general", 1, 1200),
+    ('A', "general", 2, 1000),
+    ('A', "sub2400", 1, 225),
+    ('A', "sub2200", 1, 150),
+	('A', "sub2200", 2, 100);
+
+
+INSERT INTO jugador (rankingI, titulo, nombre, federacion, fide, fideID, CV, hotel, importeP, rankingF, categoria, descalificado)
+VALUES 
+(1, NULL, 'Aguado Crespo, Antonio ', 'ESP', 1971, 22275290, TRUE, FALSE, NULL, NULL, 'B', false),
+(2, NULL, 'Lloret Climent, Miguel', 'ESP', 1954, 2206439, TRUE, FALSE, NULL, NULL, 'B', false),
+(3, NULL, 'Perez Garcia, Jose Miguel', 'ESP', 1950, 2227657, TRUE, TRUE, NULL, NULL, 'B', false),
+(4, NULL, 'Hassomal Daswani, Birjkuma', 'ESP', 1945, 2224356, TRUE, TRUE, NULL, NULL, 'B', false),
+(1, NULL, 'Navarro Rico, Lluis', 'ESP', 1937, 32045913, TRUE, FALSE, NULL, NULL, 'A', false),
+(2, NULL, 'Robledo Sanchez, Saul', 'ESP', 1926, 24554650, TRUE, FALSE, NULL, NULL, 'A', false),
+(3, NULL, 'Bote Kobolo, Benjamin E.', 'ESP', 1923, 2289440, FALSE, TRUE, NULL, NULL, 'A', false);
 
 
 /*Estos insert es para probar*/
