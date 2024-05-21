@@ -34,6 +34,8 @@ create table premio(
     constraint fk_premio_rankingI foreign key (rankingI) references jugador(rankingI) on delete cascade on update cascade
 );
 
+alter table jugador add constraint fk_jugador_tipo foreign key (tipo) references premio(tipo) on delete cascade on update cascade;
+
 create table optarPremio(
     rankingI int,
     categoria enum('A', 'B'),
@@ -46,104 +48,36 @@ create table optarPremio(
 
 
 INSERT INTO torneo (categoria) VALUES ('A'), ('B');
-/*
+
+
+/*Estos insert es para probar*/
 insert into  premio (categoria, tipo, puesto, importe) values 
-    ('B', "general", 2, 1200),
-    ('B', "general", 3, 650),
-    ('B', "general", 4, 550),
-    ('B', "general", 5, 500),
-    ('B', "general", 6, 400),
-    ('B', "general", 7, 300),
-    ('B', "general", 8, 250),
-    ('B', "general", 9, 200),
-    ('B', "general", 10, 150),
-    ('B', "general", 11, 100),
-    ('B', "general", 12, 100),
-    ('B', "cv", 1, 500),
-    ('B', "cv", 2, 400),
-    ('B', "cv", 3, 300),
-    ('B', "cv", 4, 200),
-    ('B', "cv", 5, 100),
-    ('B', "sub1800", 1, 150),
-    ('B', "sub1800", 2, 100),
-    ('B', "sub1600", 1, 150),
-    ('B', "sub1600", 2, 100),
+	('B', "general", 1, 1200),
+    ('B', "general", 2, 1000),
+    ('B', "sub1800", 1, 1100),
+    ('B', "sub1800", 2, 800),
+    ('B', "sub1600", 1, 900),
+    ('B', "sub1600", 2, 600),
     ('B', "sub1400", 1, 150),
     ('B', "sub1400", 2, 100), 
-    ('B', "hotel", 1, 125),
-    ('B', "hotel", 2, 125),
-    ('B', "hotel", 3, 125),
-    ('B', "hotel", 4, 125),
-    ('B', "hotel", 5, 125),
-    ('B', "hotel", 6, 125),
-    ('B', "hotel", 7, 125),
-    ('B', "hotel", 8, 125),
-    ('B', "hotel", 9, 125),
-    ('B', "hotel", 10, 125),
-    ('B', "hotel", 11, 125),
-    ('B', "hotel", 12, 125),
-    ('B', "hotel", 13, 125),
-    ('B', "hotel", 14, 125),
-    ('B', "hotel", 15, 125),
-    ('B', "hotel", 16, 125),
-    ('B', "hotel", 17, 125),
-    ('B', "hotel", 18, 125),
-    ('B', "hotel", 19, 125),
-    ('B', "hotel", 20, 125),
-    ('A', "general", 2, 1200),
-    ('A', "general", 3, 650),
-    ('A', "general", 4, 550),
-    ('A', "general", 5, 500),
-    ('A', "general", 6, 400),
-    ('A', "general", 7, 300),
-    ('A', "general", 8, 250),
-    ('A', "general", 9, 200),
-    ('A', "general", 10, 150),
-    ('A', "general", 11, 100),
-    ('A', "general", 12, 100),
-    ('A', "cv", 1, 500),
-    ('A', "cv", 2, 400),
-    ('A', "cv", 3, 300),
-    ('A', "cv", 4, 200),
-    ('A', "cv", 5, 100),
+    ('A', "general", 1, 1200),
+    ('A', "general", 2, 1000),
     ('A', "sub2400", 1, 225),
-    ('A', "sub2400", 2, 150),
-    ('A', "sub2400", 3, 120),
-    ('A', "sub2400", 4, 100),
     ('A', "sub2200", 1, 150),
-    ('A', "sub2200", 2, 100),
-    ('A', "hotel", 1, 125),
-    ('A', "hotel", 2, 125),
-    ('A', "hotel", 3, 125),
-    ('A', "hotel", 4, 125),
-    ('A', "hotel", 5, 125),
-    ('A', "hotel", 6, 125),
-    ('A', "hotel", 7, 125),
-    ('A', "hotel", 8, 125),
-    ('A', "hotel", 9, 125),
-    ('A', "hotel", 10, 125),
-    ('A', "hotel", 11, 125),
-    ('A', "hotel", 12, 125),
-    ('A', "hotel", 13, 125),
-    ('A', "hotel", 14, 125),
-    ('A', "hotel", 15, 125),
-    ('A', "hotel", 16, 125),
-    ('A', "hotel", 17, 125),
-    ('A', "hotel", 18, 125),
-    ('A', "hotel", 19, 125),
-    ('A', "hotel", 20, 125);
+	('A', "sub2200", 2, 100);
 
 
-INSERT INTO jugador (rankingI, titulo, nombre, apellidos, federacion, fide, fideID, CV, hotel, importeP, rankingF, categoria)
+/*Estos insert es para probar*/
+INSERT INTO jugador (rankingI, titulo, nombre, federacion, fide, fideID, CV, hotel, importeP, rankingF, categoria, descalificado, tipo)
 VALUES 
-(1, NULL, 'Antonio', 'Aguado Crespo ', 'ESP', 1971, 22275290, TRUE, FALSE, NULL, NULL, 'B'),
-(2, NULL,  'Miguel','Lloret Climent', 'ESP', 1954, 2206439, TRUE, FALSE, NULL, NULL, 'B'),
-(3, NULL, 'Jose Miguel', 'Perez Garcia', 'ESP', 1950, 2227657, TRUE, TRUE, NULL, NULL, 'B'),
-(4, NULL, 'Birjkumar','Hassomal Daswani', 'ESP', 1945, 2224356, TRUE, TRUE, NULL, NULL, 'B'),
-(5, NULL, 'Lluis', 'Navarro Rico', 'ESP', 1937, 32045913, TRUE, FALSE, NULL, NULL, 'B'),
-(6, NULL, 'Saul', 'Robledo Sanchez', 'ESP', 1926, 24554650, TRUE, FALSE, NULL, NULL, 'B'),
-(7, NULL, 'Benjamin E.','Bote Kobolo', 'ESP', 1923, 2289440, FALSE, TRUE, NULL, NULL, 'B'),
-(8, NULL, 'Cesar','Camison Zornoza', 'ESP', 1923, 24580376, TRUE, TRUE, NULL, NULL, 'B'),
+(1, NULL, 'Aguado Crespo, Antonio ', 'ESP', 1971, 22275290, TRUE, FALSE, NULL, NULL, 'B', false, 'general'),
+(2, NULL, 'Lloret Climent, Miguel', 'ESP', 1954, 2206439, TRUE, FALSE, NULL, NULL, 'B', false, 'sub1800'),
+(3, NULL, 'Perez Garcia, Jose Miguel', 'ESP', 1950, 2227657, TRUE, TRUE, NULL, NULL, 'B', false, 'sub1600'),
+(4, NULL, 'Hassomal Daswani, Birjkuma', 'ESP', 1945, 2224356, TRUE, TRUE, NULL, NULL, 'B', false, 'sub1400'),
+(1, NULL, 'Navarro Rico, Lluis', 'ESP', 1937, 32045913, TRUE, FALSE, NULL, NULL, 'A', false, 'general'),
+(2, NULL, 'Robledo Sanchez, Saul', 'ESP', 1926, 24554650, TRUE, FALSE, NULL, NULL, 'A', false, 'sub2400'),
+(3, NULL, 'Bote Kobolo, Benjamin E.', 'ESP', 1923, 2289440, FALSE, TRUE, NULL, NULL, 'A', false, 'sub2200');
+/*(8, NULL, 'Cesar','Camison Zornoza', 'ESP', 1923, 24580376, TRUE, TRUE, NULL, NULL, 'A'),
 (9, NULL, 'Vladislav','Oreshkin', 'ESP', 1920, 54535603, TRUE, FALSE, NULL, NULL, 'B'),
 (10, NULL, ' Pedro Alexis','Machin Arbelo', 'ESP', 1918, 2260972, FALSE, TRUE, NULL, NULL, 'B'),
 (11, NULL, 'Juan Angel','Perez Garcia', 'ESP', 1918, 2211262, FALSE, TRUE, NULL, NULL, 'B'),
@@ -317,5 +251,4 @@ VALUES
 (65, NULL, 'David', 'Teply Koutsky', 'ESP', 1833, 24597171, TRUE, FALSE, NULL, NULL, 'A'),
 (66, NULL, 'Zuzanna', 'Szelag', 'POL', 1811, 1195522, TRUE, FALSE, NULL, NULL, 'A'),
 (67, NULL, 'Benjamin', 'Halvorsen', 'NOR', 1801, 1516604, TRUE, FALSE, NULL, NULL, 'A'),
-(68, NULL, 'Jain', 'Daksh', 'IND', 1735, 25969269, TRUE, FALSE, NULL, NULL, 'A');
-*/
+(68, NULL, 'Jain', 'Daksh', 'IND', 1735, 25969269, TRUE, FALSE, NULL, NULL, 'A'); */
