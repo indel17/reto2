@@ -11,7 +11,7 @@ create table jugador(
     fideID varchar(30),
     hotel boolean default false,
     CV boolean default false,
-    importeP int,
+    importeP int,/**/
     categoria enum('A', 'B'),
     descalificado boolean default false,
     primary key(rankingI, categoria)
@@ -48,6 +48,9 @@ create table optarPremio(
 INSERT INTO torneo (categoria) VALUES ('A'), ('B');
 
 
+/*mirar la function o select para ver a que premios optan los jugadores*/
+
+
 /*Estos insert es para probar*/
 insert into  premio (categoria, tipo, puesto, importe) values 
 	('B', "general", 1, 1200),
@@ -63,5 +66,3 @@ insert into  premio (categoria, tipo, puesto, importe) values
     ('A', "sub2400", 1, 225),
     ('A', "sub2200", 1, 150),
 	('A', "sub2200", 2, 100);
-
-select * from jugador order by categoria ;
