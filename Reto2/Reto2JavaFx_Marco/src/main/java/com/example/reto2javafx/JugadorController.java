@@ -302,7 +302,7 @@ public class JugadorController {
                 }
                 ps.close(); // Cerramos
             } else {
-                System.out.println("No se encontró ningún jugador con " + fideId);
+                System.out.println("No se encontró ningún jugador con fideID:" + fideId);
             }
         } catch (SQLException e) {
 
@@ -336,15 +336,17 @@ public class JugadorController {
 
     }
 
-    //Modificar los datos de un jugador
-    public void modificarJugador(Jugador jugador) throws SQLException {
+
+    // Modificar los datos de un jugador
+    @FXML
+    public void modificarJugador() {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
             String fideId = txtFideID.getText(); // Obtener fideID desde TextField
 
             if (fideId == null || fideId.isEmpty()) {
-                System.out.println("FideID no válido. Operación cancelada.");
+                System.out.println("No se encontró ningún jugador concon fideID: " + fideId);
                 return;
             }
 
@@ -355,16 +357,64 @@ public class JugadorController {
 
             if (rs.next()) {
                 // Si se encuentra el jugador, proceder con la actualización
-                ps = cnx.prepareStatement("UPDATE FROM jugador WHERE fideID = ?");
-                ps.setString(1, fideId);
+                String sqlUpdate = "UPDATE jugador SET rankingI = ?, rankingF = ?, titulo = ?, nombre = ?, federacion = ?, fide = ?, hotel = ?, CV = ?, categoria = ?, descalificado = ? WHERE fideID = ?";
+                ps = cnx.prepareStatement(sqlUpdate);
 
+                // Obtener los valores desde los TextField
+                int rankingI = Integer.parseInt(txtRankingI.getText());
+                int rankingF = Integer.parseInt(txtRankingF.getText());
+                String titulo = txtTitulo.getText();
+                String nombre = txtNombre.getText();
+                String federacion = txtFederacion.getText();
+                int fide = Integer.parseInt(txtFide.getText());
+                boolean hotel = Boolean.parseBoolean(txtHotel.getText());
+                boolean cv = Boolean.parseBoolean(txtCV.getText());
+                String categoria = txtTipoTorneo.getText();
+                boolean descalificado = Boolean.parseBoolean(txtDescalificado.getText());
+
+                // Establecer los valores en el PreparedStatement
+                ps.setInt(1, rankingI);
+                ps.setInt(2, rankingF);
+                ps.setString(3, titulo);
+                ps.setString(4, nombre);
+                ps.setString(5, federacion);
+                ps.setInt(6, fide);
+                ps.setBoolean(7, hotel);
+                ps.setBoolean(8, cv);
+                ps.setString(9, categoria);
+                ps.setBoolean(10, descalificado);
+                ps.setString(11, fideId);
+
+                int filasAfectadas = ps.executeUpdate();
+
+                if (filasAfectadas > 0) {
+                    System.out.println("Jugador modificado correctamente.");
+                    // Actualizar la tabla
+                    tblJugadoresA.setItems(listaJugadoresA());
+                    tblJugadoresB.setItems(listaJugadoresB());
+                } else {
+                    System.out.println("No se pudo modificar el jugador.");
+                }
+            } else {
+                System.out.println("No se encontró ningún jugador con fideID " + fideId);
             }
-        }catch (Exception e){
-            System.out.println("me cago en la puta");
-
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error al modificar jugador: " + e.getMessage());
+        } finally {
+            // Cerrar ResultSet y PreparedStatement
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
-        }
+    }
 
+
+
+    //Metodo para saber a que premios opta cada jugador
     public static List<Premio> optarPremio(String fideID) throws SQLException { // ver si en vez de poner el fide id, ponemos el rnakig etc, otra si se pincha en el jugador q aparezca esto, ines y alex tiene q hacerlo
         List<Premio> premios = new ArrayList<>();
         PreparedStatement ps = null;
@@ -436,6 +486,62 @@ public class JugadorController {
         }
         return premios;
     }
+
+/*No hacerle caso a esto que lo he buscado en chatGPT para ver que me ponia*/
+        //Metodo para saber el premio que ha ganado cada jugador
+/*
+        public Premio determinarPremio(String fideID) throws SQLException {
+            List<Premio> premios = obtenerPremiosDisponibles(fideID);
+
+            if (premios.isEmpty()) {
+                System.out.println("No hay premios disponibles para el jugador con fideID " + fideID);
+                return null;
+            }
+
+            Premio mejorPremio = premios.get(0);
+
+            for (Premio premio : premios) {
+                if (premio.getCantidad() > mejorPremio.getCantidad() ||
+                        (premio.getCantidad() == mejorPremio.getCantidad() && premio.getValor() > mejorPremio.getValor())) {
+                    mejorPremio = premio;
+                }
+            }
+
+            System.out.println("El mejor premio para el jugador con fideID " + fideID + " es: " + mejorPremio.getNombre());
+            return mejorPremio;
+        }
+
+        private List<Premio> obtenerPremiosDisponibles(String fideID) throws SQLException {
+            List<Premio> premios = new ArrayList<>();
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+
+            try {
+                String sql = "SELECT * FROM premios WHERE fideID = ?";
+                ps = cnx.prepareStatement(sql);
+                ps.setString(1, fideID);
+                rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    String nombre = rs.getString("nombre");
+                    int cantidad = rs.getInt("cantidad");
+                    int valor = rs.getInt("valor");
+
+                    premios.add(new Premio(nombre, cantidad, valor));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+            }
+
+            return premios;
+        }
+    }
+*/
+
+
 }
 
 
