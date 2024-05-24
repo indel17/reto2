@@ -3,7 +3,6 @@ package com.example.reto2javafx;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,6 +10,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.reto2javafx.Metodos.cnx;
 
 public class ImportarInsertarCSV {
    static Connection cnx;
@@ -39,7 +40,7 @@ public class ImportarInsertarCSV {
       String titulo;
       int lineaActual = 0; // Contador de líneas
 
-      String info ;
+      String info;
       String cvxSplit = ";";  // Defino el delimitador que he utilizado para separar los datos
 
       // Intenta abrir el archivo CSV con un BufferedReader dentro de un bloque try-with-resources
@@ -50,7 +51,7 @@ public class ImportarInsertarCSV {
          // Leo el archivo línea por línea
          while ((linea = br.readLine()) != null) {
             lineaActual++;
-            if (lineaActual<6){
+            if (lineaActual < 6) {
                continue;
             }
 
@@ -61,15 +62,15 @@ public class ImportarInsertarCSV {
 
                // saco la linea, spliteo y trim para quitar esapacios en blancos q haya al principio y final
                int rankingI = Integer.parseInt(datos[0].trim());
-               titulo =datos[1].trim();
+               titulo = datos[1].trim();
                String nombre = datos[2].trim();
                String federacion = datos[3].trim();
                int fide = Integer.parseInt(datos[4].trim());
                String fideID = datos[5].trim();
-               info =  datos[6].trim();
+               info = datos[6].trim();
                int rankingF = 0;
                int importeP = 0;
-               boolean descalificado=false;
+               boolean descalificado = false;
 
                // Asigna la categoría del torneo, en este caso siempre es A
                Jugador.categoria tipoTorneo = Jugador.categoria.A;
@@ -97,19 +98,11 @@ public class ImportarInsertarCSV {
                comVal = info.contains("CV") || info.contains("CVH");
 
 
-
-
-
-
-
-
-
-
                // Crea un nuevo objeto Jugador con los datos extraídos y parseados
                Jugador jugador = new Jugador(rankingI, rankingF, titulo, nombre, federacion, fide, fideID, hotel, comVal, importeP, tipoTorneo, descalificado);
                // Añade el objeto Jugador a la lista observable
                listaJugadoresOpen.add(jugador);
-            }else {
+            } else {
                System.err.println("Línea ignorada (no tiene suficientes campos): " + linea);
             }
          }
@@ -161,7 +154,7 @@ public class ImportarInsertarCSV {
                Jugador.categoria tipoTorneo = Jugador.categoria.B;
                boolean hotel;
                boolean comVal;
-               boolean descalificado=false;
+               boolean descalificado = false;
 
 
                /*Con if mas sucio pero para q lo entendais
@@ -183,19 +176,11 @@ public class ImportarInsertarCSV {
                comVal = info.contains("CV") || info.contains("CVH");
 
 
-
-
-
-
-
-
-
-
                // Crea un nuevo objeto Jugador
                Jugador jugador = new Jugador(rankingI, rankingF, titulo, nombre, federacion, fide, fideID, hotel, comVal, importeP, tipoTorneo, descalificado);
                // Añade el objeto Jugador a la lista observable
                listaJugadoresOpen.add(jugador);
-            }else {
+            } else {
                System.err.println("Línea ignorada (no tiene suficientes campos): " + linea);
             }
          }
@@ -209,7 +194,7 @@ public class ImportarInsertarCSV {
       return listaJugadoresOpen;
    }
 
-   public void insertarJugador(List<Jugador> listaJugadores) throws SQLException{
+   public void insertarJugador(List<Jugador> listaJugadores) throws SQLException {
       String sql = "INSERT INTO jugador (rankingI, rankingF, titulo, nombre, federacion, fide, fideID, hotel, CV, importeP, categoria, descalificado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       try (Connection cnx = getConnexion();
            PreparedStatement ps = cnx.prepareStatement(sql)) {
@@ -235,4 +220,161 @@ public class ImportarInsertarCSV {
 
    }
 
+
+   public List<Jugador> importadorJugadoresAfinal(String csvFile) throws FileNotFoundException {
+      List<Jugador> clasificacionFinalJugadoresA = FXCollections.observableArrayList(); // creo una lista
+      String linea;
+      String titulo;
+      int lineaActual = 0; // Contador de líneas
+
+      String info;
+      String cvxSplit = ";";  // Defino el delimitador que he utilizado para separar los datos
+
+      // Intenta abrir el archivo CSV con un BufferedReader dentro de un bloque try-with-resources
+      try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+         // Incrementa el contador de línea cada vez que se lee una línea
+
+
+         // Leo el archivo línea por línea
+         while ((linea = br.readLine()) != null) {
+            lineaActual++;
+            if (lineaActual < 6) {
+               continue;
+            }
+
+            // Divido cada línea en partes, utilizando el delimitador ";"
+            String[] datos = linea.split(cvxSplit, -1); //esto permite tener campos vacios
+            if (datos.length >= 1) {
+
+               // saco la linea, spliteo y trim para quitar esapacios en blancos q haya al principio y final
+               int rankingI = Integer.parseInt(datos[0].trim());
+               int rankingF = Integer.parseInt(datos[1].trim());
+
+               // Asigna la categoría del torneo, en este caso siempre es A
+               Jugador.categoria tipoTorneo = Jugador.categoria.A;
+
+               // Crea un nuevo objeto Jugador con los datos extraídos y parseados
+               Jugador jugador = new Jugador(rankingI, rankingF, tipoTorneo);
+               // Añade el objeto Jugador a la lista observable
+               clasificacionFinalJugadoresA.add(jugador);
+            } else {
+               System.err.println("Línea ignorada (no tiene suficientes campos): " + linea);
+            }
+         }
+      } catch (IOException e) {
+         // Captura cualquier error de E/S que pueda ocurrir durante la lectura del archivo
+         e.printStackTrace();
+      }
+
+      // Devuelve la lista de jugadores
+      return clasificacionFinalJugadoresA;
+   }
+
+
+   public List<Jugador> importadorJugadoresBfinal(String csvFile) throws FileNotFoundException {
+      List<Jugador> clasificacionFinalJugadoresB = FXCollections.observableArrayList(); // creo una lista
+      String linea;
+      String titulo;
+      int lineaActual = 0; // Contador de líneas
+
+      String info;
+      String cvxSplit = ";";  // Defino el delimitador que he utilizado para separar los datos
+
+      // Intenta abrir el archivo CSV con un BufferedReader dentro de un bloque try-with-resources
+      try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+         // Incrementa el contador de línea cada vez que se lee una línea
+
+
+         // Leo el archivo línea por línea
+         while ((linea = br.readLine()) != null) {
+            lineaActual++;
+            if (lineaActual < 6) {
+               continue;
+            }
+
+            // Divido cada línea en partes, utilizando el delimitador ";"
+            String[] datos = linea.split(cvxSplit, -1); //esto permite tener campos vacios
+            if (datos.length >= 1) {
+
+               // saco la linea, spliteo y trim para quitar esapacios en blancos q haya al principio y final
+               int rankingI = Integer.parseInt(datos[0].trim());
+               int rankingF = Integer.parseInt(datos[1].trim());
+
+               // Asigna la categoría del torneo, en este caso siempre es A
+               Jugador.categoria tipoTorneo = Jugador.categoria.B;
+
+               // Crea un nuevo objeto Jugador con los datos extraídos y parseados
+               Jugador jugador = new Jugador(rankingI, rankingF, tipoTorneo);
+               // Añade el objeto Jugador a la listajugador observable
+               clasificacionFinalJugadoresB.add(jugador);
+            } else {
+               System.err.println("Línea ignorada (no tiene suficientes campos): " + linea);
+            }
+         }
+      } catch (IOException e) {
+         // Captura cualquier error de E/S que pueda ocurrir durante la lectura del archivo
+         e.printStackTrace();
+      }
+
+      // Devuelve la lista de jugadores
+      return clasificacionFinalJugadoresB;
+   }
+
+
+
+   public void insertarJugadorFinal(List<Jugador> clasificacion) throws SQLException {
+      List<Jugador> jugadoresFinal = new ArrayList<>(); //esta es de la base de datos
+      Jugador jugador;
+      try (
+              Statement st = cnx.createStatement();
+              ResultSet rs = st.executeQuery("SELECT rankingI, rankinF, categoria FROM jugador "); //Consulta para seleccionar lo que queremos
+      ) {
+         while (rs.next()) {
+
+
+            jugador = new Jugador(
+                    rs.getInt("rankingI"),
+                    rs.getInt("rankingF"),
+                    Jugador.categoria.valueOf(rs.getString("categoria"))
+
+            );
+            //inserta el rankingF
+            jugadoresFinal.add(jugador);
+            if (jugador.getTipoTorneo().equals(Jugador.categoria.A)) {
+               if (jugador.getRankingI() == clasificacion.getFirst().getRankingI()) {
+                  String sql= "INSERT INTO jugador ( rankingF ) VALUES (?)";
+                  try (Connection cnx = getConnexion();
+                       PreparedStatement ps = cnx.prepareStatement(sql)) {
+                     for (Jugador jugadores : jugadoresFinal) {
+                        ps.setInt(1, jugadores.getRankingF());
+                        ps.executeUpdate();
+                     }
+                  } catch (SQLException e) {
+                     e.printStackTrace();
+                  }
+               }
+
+            }
+            jugadoresFinal.add(jugador);
+            if (jugador.getTipoTorneo().equals(Jugador.categoria.B)) {
+               if (jugador.getRankingI() == clasificacion.getFirst().getRankingI()) {
+                  if (jugador.getRankingI() == clasificacion.getFirst().getRankingI()) {
+                     String sql= "INSERT INTO jugador ( rankingF ) VALUES (?)";
+                     try (Connection cnx = getConnexion();
+                          PreparedStatement ps = cnx.prepareStatement(sql)) {
+                        for (Jugador jugadores : jugadoresFinal) {
+                           ps.setInt(1, jugadores.getRankingF());
+                           ps.executeUpdate();
+                        }
+                     } catch (SQLException e) {
+                        e.printStackTrace();
+                     }
+                  }
+               }
+            }
+
+
+         }
+      }
+   }
 }

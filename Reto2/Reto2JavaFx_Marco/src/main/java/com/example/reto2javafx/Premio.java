@@ -39,3 +39,4 @@ public class Premio {
     }
 }
 
+//haz que para los jugadores que solo pueden ganar un premio la prioridad sea que si optan entre varios premios, entre los premios que opten siempre ganaran el de mayor cantidad, si el importe de los premios coincide la prioridad sera de mayor a menor prioridad en este orden: general, sub2400, sub2200, cv, h para el caso de los jugadores del torneo A; y para los jugadores del torneo B será de mayor a menor prioridad en este orden: general, sub1800, sub1600, sub1400, cv, h.

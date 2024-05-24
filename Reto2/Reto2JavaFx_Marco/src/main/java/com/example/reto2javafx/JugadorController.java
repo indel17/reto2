@@ -26,7 +26,6 @@ public class JugadorController {
     //primero vamos a crear una tableview de jugadores A y B
 
 
-
     @FXML
     private TableView<Jugador> tblJugadoresB;
 
@@ -34,18 +33,17 @@ public class JugadorController {
     private TableView<Jugador> tblJugadoresA;
 
 
-
     // Creamos sus columnas
     @FXML
     private TableColumn<Jugador, Integer> rankingIColumn;
-   // @FXML comentado por pruebas
-   //private TableColumn<Jugador, Integer> rankingFColumn;
-   //  @FXML
-   // private TableColumn<Jugador, String> tituloColumn;
+    // @FXML comentado por pruebas
+    //private TableColumn<Jugador, Integer> rankingFColumn;
+    //  @FXML
+    // private TableColumn<Jugador, String> tituloColumn;
     @FXML
     private TableColumn<Jugador, String> nombreColumn;
     //@FXML
-   // private TableColumn<Jugador, String> apellidosColumn;
+    // private TableColumn<Jugador, String> apellidosColumn;
     @FXML
     private TableColumn<Jugador, String> federacionColumn;
     @FXML
@@ -57,7 +55,7 @@ public class JugadorController {
     @FXML
     private TableColumn<Jugador, Boolean> cvColumn;
     //@FXML
-   // private TableColumn<Jugador, Integer> importePColumn;
+    // private TableColumn<Jugador, Integer> importePColumn;
     @FXML
     private TableColumn<Jugador, Jugador.categoria> tipoTorneoColumn;
     @FXML
@@ -98,30 +96,28 @@ public class JugadorController {
     }
 
 
-    private void initTabla(TableView<Jugador> tabla, ObservableList<Jugador> listajugadores){
+    private void initTabla(TableView<Jugador> tabla, ObservableList<Jugador> listajugadores) {
 
 
-       try {
-           rankingIColumn.setCellValueFactory(new PropertyValueFactory<>("puesto"));
-           nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-           fideColumn.setCellValueFactory(new PropertyValueFactory<>("fide"));
-           fideIDColumn.setCellValueFactory(new PropertyValueFactory<>("idFide"));
-           tipoTorneoColumn.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-           federacionColumn.setCellValueFactory(new PropertyValueFactory<>("fed"));
-           hotelColumn.setCellValueFactory(new PropertyValueFactory<>("hotel"));
-           cvColumn.setCellValueFactory(new PropertyValueFactory<>("cv"));
-           descalificadoColumn.setCellValueFactory(new PropertyValueFactory<>("descalificado"));
+        try {
+            rankingIColumn.setCellValueFactory(new PropertyValueFactory<>("puesto"));
+            nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+            fideColumn.setCellValueFactory(new PropertyValueFactory<>("fide"));
+            fideIDColumn.setCellValueFactory(new PropertyValueFactory<>("idFide"));
+            tipoTorneoColumn.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+            federacionColumn.setCellValueFactory(new PropertyValueFactory<>("fed"));
+            hotelColumn.setCellValueFactory(new PropertyValueFactory<>("hotel"));
+            cvColumn.setCellValueFactory(new PropertyValueFactory<>("cv"));
+            descalificadoColumn.setCellValueFactory(new PropertyValueFactory<>("descalificado"));
 
-           tabla.setItems(listajugadores);
+            tabla.setItems(listajugadores);
 
-       } catch (Exception e) {
-         e.printStackTrace();
-       }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }
-
-
 
 
     // Creamos una lista para guardar los jugadoresA que extraeremos mediante la consulta
@@ -180,7 +176,6 @@ public class JugadorController {
         }
         return jugadoresB;
     }
-
 
 
     @FXML
@@ -346,7 +341,7 @@ public class JugadorController {
             String fideId = txtFideID.getText(); // Obtener fideID desde TextField
 
             if (fideId == null || fideId.isEmpty()) {
-                System.out.println("No se encontró ningún jugador concon fideID: " + fideId);
+                System.out.println("No se encontró ningún jugador con fideID: " + fideId);
                 return;
             }
 
@@ -396,7 +391,7 @@ public class JugadorController {
                     System.out.println("No se pudo modificar el jugador.");
                 }
             } else {
-                System.out.println("No se encontró ningún jugador con fideID " + fideId);
+                System.out.println("No se encontró ningún jugador con fideID: " + fideId);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -411,7 +406,6 @@ public class JugadorController {
             }
         }
     }
-
 
 
     //Metodo para saber a que premios opta cada jugador
@@ -431,8 +425,7 @@ public class JugadorController {
                 String categoria = rs.getString("categoria");
 
 
-
-                if(categoria.equals("A")) {
+                if (categoria.equals("A")) {
 
                     premios.add(new Premio("General"));
 
@@ -486,9 +479,19 @@ public class JugadorController {
         }
         return premios;
     }
+}
 
-/*No hacerle caso a esto que lo he buscado en chatGPT para ver que me ponia*/
-        //Metodo para saber el premio que ha ganado cada jugador
+    //Metodo para saber el premio que ha ganado cada jugador
+    public Premio determinarPremio(String fideID) throws SQLException {
+
+    }
+}
+
+
+
+
+/*No hacerle caso a esto que lo he buscado para ver que me ponia*/
+//Metodo para saber el premio que ha ganado cada jugador
 /*
         public Premio determinarPremio(String fideID) throws SQLException {
             List<Premio> premios = obtenerPremiosDisponibles(fideID);
@@ -540,9 +543,3 @@ public class JugadorController {
         }
     }
 */
-
-
-}
-
-
-

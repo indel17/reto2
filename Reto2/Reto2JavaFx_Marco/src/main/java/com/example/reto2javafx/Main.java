@@ -71,13 +71,19 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws SQLException, IOException {
-        /*launch(args);*/
-        List<Premio> premios = JugadorController.optarPremio("32015046");
+        launch(args);
+            ImportarInsertarCSV csv = new ImportarInsertarCSV();
+            List<Jugador> importadorJugadoresAfinal = csv.importarjugadoresA("/home/ALU1J/IdeaProjects/clasificacionFinalOpenA.csv");
+            List<Jugador> importadorJugadoresBfinal = csv.importarjugadoresA("/home/ALU1J/IdeaProjects/clasificacionFinalOpenB.csv");
+            csv.insertarJugador(importadorJugadoresAfinal);
+            csv.insertarJugador(importadorJugadoresBfinal);
+
+/*List<Premio> premios = JugadorController.optarPremio("32015046");
         System.out.println("Premios  a los q opta");
         for (Premio premio : premios) {
             System.out.println("Tipo: " + premio.getTipo());
             System.out.println();
-
+*/
 /*
         ImportarInsertarCSV csv = new ImportarInsertarCSV();
 
@@ -86,10 +92,9 @@ public class Main extends Application {
         csv.insertarJugador(listaJugadoresA);
         csv.insertarJugador(listaJugadoresB);
 */
-
         }
-    }
 }
+
 
 
 

@@ -17,11 +17,12 @@ public class Jugador {
     public enum categoria {
         A, B
     }
-    
-    
 
-
-
+    public Jugador(int rankingI, int rankingF, categoria tipoTorneo) {
+        this.rankingI = rankingI;
+        this.rankingF = rankingF;
+        this.tipoTorneo = tipoTorneo;
+    }
 
 
     public categoria getTipoTorneo() {
