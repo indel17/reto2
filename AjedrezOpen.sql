@@ -46,6 +46,23 @@ create table optarPremio(
 
 INSERT INTO torneo (categoria) VALUES ('A'), ('B');
 
+ALTER TABLE premio ADD COLUMN prioridad INT;
+
+UPDATE premio SET prioridad = 1, categoria = 'A' WHERE tipo = 'general';
+UPDATE premio SET prioridad = 2, categoria = 'A' WHERE tipo = 'sub2400';
+UPDATE premio SET prioridad = 3, categoria = 'A' WHERE tipo = 'sub2200';
+UPDATE premio SET prioridad = 4, categoria = 'A' WHERE tipo = 'cv';
+UPDATE premio SET prioridad = 5, categoria = 'A' WHERE tipo = 'h';
+
+UPDATE premio SET prioridad = 1, categoria = 'B' WHERE tipo = 'general';
+UPDATE premio SET prioridad = 2, categoria = 'B' WHERE tipo = 'sub1800';
+UPDATE premio SET prioridad = 3, categoria = 'B' WHERE tipo = 'sub1600';
+UPDATE premio SET prioridad = 4, categoria = 'B' WHERE tipo = 'sub1400';
+UPDATE premio SET prioridad = 5, categoria = 'B' WHERE tipo = 'cv';
+UPDATE premio SET prioridad = 6, categoria = 'B' WHERE tipo = 'h';
+
+
+
 
 insert into premio (categoria, tipo, puesto, importe) values 
 /* PREMIOS OPEN A */
