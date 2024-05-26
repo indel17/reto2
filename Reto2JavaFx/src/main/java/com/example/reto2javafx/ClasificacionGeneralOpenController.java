@@ -1,0 +1,214 @@
+package com.example.reto2javafx;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import static com.example.reto2javafx.Metodos.cnx;
+
+public class ClasificacionGeneralOpenController {
+
+    @FXML
+    private Button btnVolver;
+    @FXML
+    private Button btnGenerarPremios;
+
+
+    @FXML
+    private TableView<Jugador> tblClasificacionB= new TableView<>();
+
+    @FXML
+    private TableView<Jugador> tblClasificacionA= new TableView<>();
+
+    // Creamos sus columnas
+    @FXML
+    private TableColumn<Jugador, Integer> rankingFColumn;
+    @FXML
+    private TableColumn<Jugador, String> nombreColumn;
+    @FXML
+    private TableColumn<Jugador, Integer> fideColumn;
+    @FXML
+    private TableColumn<Jugador, Boolean> hotelColumn;
+    @FXML
+    private TableColumn<Jugador, Boolean> cvColumn;
+    @FXML
+    private TableColumn<Jugador, Integer> rankingIColumn;
+
+    @FXML
+    private TextField txtNombre;
+    @FXML
+    private TextField txtApellidos;
+    @FXML
+    private TextField txtFederacion;
+    @FXML
+    private TextField txtFide;
+    @FXML
+    private TextField txtFideID;
+    @FXML
+    private TextField txtImporteP;
+    @FXML
+    private TextField txtTipoTorneo;
+    @FXML
+    private TextField txtRankingI;  // TextField para el ranking inicial
+    @FXML
+    private TextField txtRankingF;  // TextField para el ranking final
+    @FXML
+    private TextField txtTitulo;
+    @FXML
+    private TextField txtDescalificado;
+    @FXML
+    private TextField txtHotel;
+    @FXML
+    private TextField txtCV;
+    //añadir descalifcado
+
+    @FXML
+    public void initialize() throws SQLException {
+        initTabla(tblClasificacionA, listaClasificacionA());
+        initTabla(tblClasificacionB, listaClasificacionB());
+    }
+    private void initTabla(TableView<Jugador> tabla, ObservableList<Jugador> listaClasificacion){
+        try {
+            if (tabla == null) {
+                System.out.println("Error: La tabla es null.");
+                return;
+            }
+            rankingFColumn.setCellValueFactory(new PropertyValueFactory<>("rankingF"));
+            rankingIColumn.setCellValueFactory(new PropertyValueFactory<>("rankingI"));
+            nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+            fideColumn.setCellValueFactory(new PropertyValueFactory<>("fide"));
+            hotelColumn.setCellValueFactory(new PropertyValueFactory<>("hotel"));
+            cvColumn.setCellValueFactory(new PropertyValueFactory<>("cv"));
+
+            tabla.setItems(listaClasificacion);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public ObservableList<Jugador> listaClasificacionA() throws SQLException {
+        ObservableList<Jugador> clasificacionA = FXCollections.observableArrayList();
+        try (
+                Statement st = cnx.createStatement();
+                ResultSet rs = st.executeQuery("SELECT * FROM jugador WHERE categoria='A' ORDER BY rankingF"); //Consulta para seleccionar lo que queremos
+        ) {
+            while (rs.next()) {
+                Jugador jugador = new Jugador(
+                        rs.getInt("rankingI"),
+                        rs.getInt("rankingF"),
+                        rs.getString("titulo"),
+                        rs.getString("nombre"),
+                        rs.getString("federacion"),
+                        rs.getInt("fide"),
+                        rs.getString("fideID"),
+                        rs.getBoolean("hotel"),
+                        rs.getBoolean("cv"),
+                        rs.getInt("importeP"),
+                        Jugador.categoria.valueOf(rs.getString("categoria")),
+                        rs.getBoolean("descalificado")
+                );
+                clasificacionA.add(jugador);
+            }
+        }
+        return clasificacionA;
+    }
+    // Creamos una lista para guardar los jugadoresB que extraeremos mediante la consulta
+    public ObservableList<Jugador> listaClasificacionB() throws SQLException {
+        ObservableList<Jugador> clasificacionB = FXCollections.observableArrayList();
+        try (
+                Statement st = cnx.createStatement();
+                ResultSet rs = st.executeQuery("SELECT * FROM jugador WHERE categoria='B' ORDER BY rankingF"); //Consulta para seleccionar lo que queremos
+        ) {
+            while (rs.next()) {
+                Jugador jugador = new Jugador(
+                        rs.getInt("rankingI"),
+                        rs.getInt("rankingF"),
+                        rs.getString("titulo"),
+                        rs.getString("nombre"),
+                        rs.getString("federacion"),
+                        rs.getInt("fide"),
+                        rs.getString("fideID"),
+                        rs.getBoolean("hotel"),
+                        rs.getBoolean("cv"),
+                        rs.getInt("importeP"),
+                        Jugador.categoria.valueOf(rs.getString("categoria")),
+                        rs.getBoolean("descalificado")
+                );
+                clasificacionB.add(jugador);
+            }
+        }
+        return clasificacionB;
+    }
+    // Controlador de evento para el botón "Volver"
+    public void volverClicked() {
+        try {
+            // Cargar la nueva ventana
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu2OpenA.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load()));
+            stage.setTitle("Nueva Ventana");
+            stage.show();
+            Stage currentStage = (Stage) btnVolver.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Controlador de evento para el botón "Generar Premios"
+    public void generarPremiosClicked() {
+        try {
+            // Cargar la nueva ventana
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("premiosOpenA.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load()));
+            stage.setTitle("Nueva Ventana");
+            stage.show();
+            Stage currentStage = (Stage) btnGenerarPremios.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void generarPremiosBVistaB() {
+        try {
+            // Cargar la nueva ventana B
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("premiosOpenB.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load()));
+            stage.setTitle("Nueva Ventana B");
+            stage.show();
+            Stage currentStage = (Stage) btnGenerarPremios.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void volverBVistaB() {
+        try {
+            // Cargar la nueva ventana B
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu2OpenB.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load()));
+            stage.setTitle("Nueva Ventana B");
+            stage.show();
+            Stage currentStage = (Stage) btnVolver.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
