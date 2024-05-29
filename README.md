@@ -1,3 +1,4 @@
+DESCARGAR - Reto2FinalProvisional.zip
 Archivo subido en zip, le dais click y despues en ViewRaw y se descarga automáticamente El archivo tiene todos lo recursos utilizado, tanto csv como los recursos de cliente, conexion y waffle 
 -Añadir carpeta con todos los recursos utilizados en el frontend 
 
