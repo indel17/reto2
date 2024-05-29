@@ -1,0 +1,70 @@
+Premios a los que optan los jugadores
+
+1 Torneo: A - gustavo
+	Premio: General
+	Premio: Premio de hotel
+
+200 Torneo: A - andres garcia
+	Premio: General
+	Premio: Premio de hotel
+
+100 Torneo: A - manuel
+	Premio: General
+	Premio: Premio de hotel
+	Premio: Premio CV
+
+99 Torneo: A - juanmi
+	Premio: General
+	Premio: Premio de hotel
+
+89 Torneo: A - marco vinicio
+	Premio: General
+	Premio: Premio CV
+
+70 Torneo: A - carmen calatayud
+	Premio: General
+	Premio: Premio de hotel
+	Premio: Premio CV
+
+55 Torneo: A - matilde lopez
+	Premio: General
+	Premio: Premio de hotel
+
+54 Torneo: A - isidro
+	Premio: General
+	Premio: Premio de hotel
+	Premio: Premio CV
+
+51 Torneo: A - fermin lopez
+	Premio: General
+	Premio: Premio de hotel
+
+50 Torneo: A - pedro
+	Premio: General
+	Premio: Premio CV
+
+22 Torneo: A - antonio rodriguez
+	Premio: General
+	Premio: Premio de hotel
+	Premio: Premio CV
+
+21 Torneo: A - jose luis
+	Premio: General
+
+18 Torneo: A - asensio
+	Premio: General
+	Premio: Premio de hotel
+
+10 Torneo: A - adrian
+	Premio: General
+
+2 Torneo: A - edu
+	Premio: General
+	Premio: Premio de hotel
+	Premio: Premio CV
+
+500 Torneo: A - felipe agusto
+	Premio: General
+	Premio: Premio de hotel
+	Premio: Premio CV
+
